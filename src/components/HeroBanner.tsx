@@ -82,6 +82,12 @@ export function HeroBanner() {
     return () => clearInterval(cursorInterval);
   }, []);
 
+  // Determine which line height to use based on animation phase
+  const isShowingFirstText =
+    animationPhase === "typing-first" ||
+    animationPhase === "pause-first" ||
+    animationPhase === "erasing-first";
+
   return (
     <div
       className="flex h-[218px] flex-col justify-center items-center relative bg-cover bg-center"
@@ -89,7 +95,11 @@ export function HeroBanner() {
         backgroundImage: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/hero-bg.svg')`,
       }}
     >
-      <h1 className="text-white text-center font-nunito text-[40px] font-black leading-[71px] capitalize">
+      <h1
+        className={`text-white text-center font-nunito text-[40px] font-black capitalize ${
+          isShowingFirstText ? "leading-[50px]" : "leading-[71px]"
+        }`}
+      >
         {displayText}
         <span
           className={`${showCursor ? "opacity-100" : "opacity-0"} transition-opacity duration-100`}
